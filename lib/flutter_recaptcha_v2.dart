@@ -22,8 +22,8 @@ class RecaptchaV2 extends StatefulWidget {
     this.onVerifiedSuccessfully,
     this.onVerifiedError,
   })  : controller = controller ?? RecaptchaV2Controller(),
-    assert(apiKey != null, "Google ReCaptcha API KEY is missing."),
-    assert(apiSecret != null, "Google ReCaptcha API SECRET is missing.");
+        assert(apiKey != null, "Google ReCaptcha API KEY is missing."),
+        assert(apiSecret != null, "Google ReCaptcha API SECRET is missing.");
 
   @override
   State<StatefulWidget> createState() => _RecaptchaV2State();
