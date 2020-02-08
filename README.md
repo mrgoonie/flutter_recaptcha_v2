@@ -9,7 +9,9 @@ This plugin only supports **Google ReCAPTCHA V2** (not V3)
 
 Obtain your own key & secret here: https://www.google.com/recaptcha
 
-Test your API KEY at: https://recaptcha-flutter-plugin.firebaseapp.com/?api_key=API_KEY
+**!!! Remember to add this domain into the reCaptcha setting: recaptcha-flutter-plugin.firebaseapp.com**
+
+Then test your API KEY at: https://recaptcha-flutter-plugin.firebaseapp.com/?api_key=API_KEY
 
 Put `RecaptchaV2` widget into your widget tree (Usually inside `Stack` widget), **make sure it's placed on top of the tree and block all the behind interactions**:
 
