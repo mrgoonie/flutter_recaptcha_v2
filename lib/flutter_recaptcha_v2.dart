@@ -9,8 +9,10 @@ import 'dart:convert';
 class RecaptchaV2 extends StatefulWidget {
   final String apiKey;
   final String apiSecret;
-  final String pluginURL = "https://recaptcha-flutter-plugin.firebaseapp.com/";
+  final String pluginURL;
   final RecaptchaV2Controller controller;
+  bool visibleCancelBottom;
+  String textCancelButtom;
 
   final ValueChanged<bool> onVerifiedSuccessfully;
   final ValueChanged<String> onVerifiedError;
@@ -18,12 +20,15 @@ class RecaptchaV2 extends StatefulWidget {
   RecaptchaV2({
     this.apiKey,
     this.apiSecret,
+    this.pluginURL: "https://recaptcha-flutter-plugin.firebaseapp.com/",
+    this.visibleCancelBottom: false,
+    this.textCancelButtom: "CANCEL CAPTCHA",
     RecaptchaV2Controller controller,
     this.onVerifiedSuccessfully,
     this.onVerifiedError,
   })  : controller = controller ?? RecaptchaV2Controller(),
-        assert(apiKey != null, "Google ReCaptcha API KEY is missing."),
-        assert(apiSecret != null, "Google ReCaptcha API SECRET is missing.");
+    assert(apiKey != null, "Google ReCaptcha API KEY is missing."),
+    assert(apiSecret != null, "Google ReCaptcha API SECRET is missing.");
 
   @override
   State<StatefulWidget> createState() => _RecaptchaV2State();
@@ -39,9 +44,6 @@ class _RecaptchaV2State extends State<RecaptchaV2> {
       "secret": widget.apiSecret,
       "response": token,
     });
-
-    // print("Response status: ${response.statusCode}");
-    // print("Response body: ${response.body}");
 
     if (response.statusCode == 200) {
       dynamic json = jsonDecode(response.body);
@@ -105,12 +107,10 @@ class _RecaptchaV2State extends State<RecaptchaV2> {
                   JavascriptChannel(
                     name: 'RecaptchaFlutterChannel',
                     onMessageReceived: (JavascriptMessage receiver) {
-                      // print(receiver.message);
                       String _token = receiver.message;
                       if (_token.contains("verify")) {
                         _token = _token.substring(7);
                       }
-                      // print(_token);
                       verifyToken(_token);
                     },
                   ),
@@ -119,25 +119,30 @@ class _RecaptchaV2State extends State<RecaptchaV2> {
                   webViewController = _controller;
                 },
               ),
-              Align(
-                alignment: Alignment.bottomCenter,
-                child: SizedBox(
-                  height: 60,
-                  child: Row(
-                    mainAxisSize: MainAxisSize.max,
-                    children: <Widget>[
-                      Expanded(
-                        child: RaisedButton(
-                          child: Text("CANCEL RECAPTCHA"),
-                          onPressed: () {
-                            controller.hide();
-                          },
+              Visibility(
+                visible: widget.visibleCancelBottom,
+                child: Align(
+                  alignment: Alignment.bottomCenter,
+                  child: SizedBox(
+                    height: 60,
+                    child: Row(
+                      mainAxisSize: MainAxisSize.max,
+                      children: <Widget>[
+                        Expanded(
+                          child: RaisedButton(
+                            child: Text(widget.textCancelButtom),
+                            onPressed: () {
+                              controller.hide();
+                            },
+                          ),
                         ),
-                      ),
-                    ],
-                  ),
+                      ],
+                    ),
                 ),
               ),
+
+              ),
+
             ],
           )
         : Container();
