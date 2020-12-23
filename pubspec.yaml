@@ -1,6 +1,6 @@
 name: flutter_recaptcha_v2
 description: A Flutter plugin for Google ReCaptcha V2.
-version: 0.1.0
+version: 0.2.0
 author: Duy Nguyen <duynguyen@digitop.vn>
 homepage: https://github.com/senzil/flutter_recaptcha_v2/
 

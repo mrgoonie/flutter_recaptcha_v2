@@ -15,7 +15,7 @@ Then test your API KEY at: https://recaptcha-flutter-plugin.firebaseapp.com/?api
 
 Put `RecaptchaV2` widget into your widget tree (Usually inside `Stack` widget), **make sure it's placed on top of the tree and block all the behind interactions**:
 
-- You can change the plugin url for the captcha domain insde the RecaptchaV2 or leave it by default non adding the line:
+- You can change the plugin url for the captcha domain inside the RecaptchaV2 or leave it by default non adding the line:
 
 ```dart
 pluginURL: "https://mypersonalurl.com"
@@ -26,14 +26,14 @@ pluginURL: "https://mypersonalurl.com"
 
 - To show the Cancel Button with the captcha controller set the boolean to `true`:
 ```dart
-visibleCancelBottom: true
+visibleCancelBotton: true
 ```
 
  **otherwise it won't appear**
 
-- Set the Text for the Cancel buttom or leave it by default:
+- Set the Text for the Cancel button or leave it by default:
 ```dart
-textCancelButtom: "CANCEL CAPTCHA"
+textCancelButton: "CANCEL CAPTCHA"
 ```
 
 ### Example
@@ -45,19 +45,20 @@ RecaptchaV2(
     apiKey: "YOUR_API_KEY", // for enabling the reCaptcha
     apiSecret: "YOUR_API_SECRET", // for verifying the responded token
     pluginURL: "https://mypersonalurl.com",
-	visibleCancelBottom: true,
-	textCancelButtom: "CUSTOM CANCEL CAPTCHA BUTTOM TEXT",
+	visibleCancelBotton: true,
+	textCancelButton: "CUSTOM CANCEL CAPTCHA BUTTON TEXT",
 	controller: recaptchaV2Controller,
-    onVerifiedError: (err){
+    onVerifiedError: (err, response){
         print(err);
     },
-    onVerifiedSuccessfully: (success) {
+    onVerifiedSuccessfully: (success, response) {
         setState(() {
             if (success) {
                 // You've been verified successfully.
             } else {
                 // "Failed to verify.
             }
+            // do something with the response of the challenge
         });
     },
 ),
