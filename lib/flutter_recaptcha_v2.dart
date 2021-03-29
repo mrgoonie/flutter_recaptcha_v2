@@ -1,10 +1,11 @@
 library flutter_recaptcha_v2;
 
-import 'package:webview_flutter/webview_flutter.dart';
+import 'dart:convert';
+
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
-import 'dart:convert';
+import 'package:webview_flutter/webview_flutter.dart';
 
 class RecaptchaV2 extends StatefulWidget {
   final String apiKey;
@@ -27,8 +28,8 @@ class RecaptchaV2 extends StatefulWidget {
     this.onVerifiedSuccessfully,
     this.onVerifiedError,
   })  : controller = controller ?? RecaptchaV2Controller(),
-    assert(apiKey != null, "Google ReCaptcha API KEY is missing."),
-    assert(apiSecret != null, "Google ReCaptcha API SECRET is missing.");
+        assert(apiKey != null, "Google ReCaptcha API KEY is missing."),
+        assert(apiSecret != null, "Google ReCaptcha API SECRET is missing.");
 
   @override
   State<StatefulWidget> createState() => _RecaptchaV2State();
@@ -40,7 +41,7 @@ class _RecaptchaV2State extends State<RecaptchaV2> {
 
   void verifyToken(String token) async {
     String url = "https://www.google.com/recaptcha/api/siteverify";
-    http.Response response = await http.post(url, body: {
+    http.Response response = await http.post(Uri.parse(url), body: {
       "secret": widget.apiSecret,
       "response": token,
     });
@@ -138,11 +139,9 @@ class _RecaptchaV2State extends State<RecaptchaV2> {
                         ),
                       ],
                     ),
+                  ),
                 ),
               ),
-
-              ),
-
             ],
           )
         : Container();
