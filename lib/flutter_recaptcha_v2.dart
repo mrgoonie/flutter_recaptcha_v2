@@ -21,9 +21,9 @@ class RecaptchaV2 extends StatefulWidget {
   RecaptchaV2({
     required this.apiKey,
     required this.apiSecret,
-    this.pluginURL: "https://recaptcha-flutter-plugin.firebaseapp.com/",
-    this.visibleCancelBottom: false,
-    this.textCancelButtom: "CANCEL CAPTCHA",
+    this.pluginURL = "https://recaptcha-flutter-plugin.firebaseapp.com/",
+    this.visibleCancelBottom = false,
+    this.textCancelButtom = "CANCEL CAPTCHA",
     RecaptchaV2Controller? controller,
     this.onVerifiedSuccessfully,
     this.onVerifiedError,
@@ -130,9 +130,9 @@ class _RecaptchaV2State extends State<RecaptchaV2> {
                       mainAxisSize: MainAxisSize.max,
                       children: <Widget>[
                         Expanded(
-                          child: RaisedButton(
+                          child: InkWell(
                             child: Text(widget.textCancelButtom),
-                            onPressed: () {
+                            onTap: () {
                               controller.hide();
                             },
                           ),
