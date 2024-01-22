@@ -18,7 +18,7 @@ class MyApp extends StatelessWidget {
 }
 
 class MyHomePage extends StatefulWidget {
-  MyHomePage({Key key, this.title}) : super(key: key);
+  MyHomePage({Key? key, required this.title}) : super(key: key);
 
   final String title;
 
@@ -43,9 +43,9 @@ class _MyHomePageState extends State<MyHomePage> {
             child: Column(
               mainAxisAlignment: MainAxisAlignment.center,
               children: <Widget>[
-                GestureDetector(
+                ElevatedButton(
                   child: Text("SHOW ReCAPTCHA"),
-                  onTap: () {
+                  onPressed: () {
                     recaptchaV2Controller.show();
                   },
                 ),
@@ -54,9 +54,8 @@ class _MyHomePageState extends State<MyHomePage> {
             ),
           ),
           RecaptchaV2(
-            apiKey: "6LeCwZYUAAAAAJo8IVvGX9dH65Rw89vxaxErCeou",
-            apiSecret: "6LeCwZYUAAAAAKGahIjwfOARevvRETgvwhPMKCs_",
-            autoVerify: true,
+            apiKey: "6LfXp1UpAAAAAEku9BSeBt6JJxXrlvtYjh--X4D7",
+            apiSecret: "6LfXp1UpAAAAAIFVynIPkooVWZi5qN8u16SYJTVt",
             controller: recaptchaV2Controller,
             onVerifiedError: (err) {
               print(err);
